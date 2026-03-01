@@ -4,5 +4,8 @@ permissionset 50000 "BCW Permissions"
     Caption = 'Permissions', MaxLength = 30;
 
     Permissions =
-        ;
+        table "BCW Alt. Comp. VAT Reg." = X,
+        tabledata "BCW Alt. Comp. VAT Reg." = RMID,
+        codeunit "BCW Alt. Comp. VAT Reg. Facade" = X,
+        page "BCW Alt. Comp. VAT Reg." = X;
 }
