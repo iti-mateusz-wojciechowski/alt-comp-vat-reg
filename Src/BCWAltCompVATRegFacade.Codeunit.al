@@ -20,7 +20,7 @@ codeunit 50001 "BCW Alt. Comp. VAT Reg. Facade"
         BCWAltCompVATRegOrch.GetAltCompVATRegDocImpl().UpdateSetupOnBillToCustomerChangeInSalesHeader(SalesHeader, xSalesHeader, BillToCustomer);
     end;
 
-    procedure CopyFromCustomer(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
+    procedure CopyFromCompany(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
     begin
         BCWAltCompVATRegOrch.GetAltCompVATRegDocImpl().CopyFromCompany(SalesHeader, xSalesHeader);
     end;
@@ -35,16 +35,6 @@ codeunit 50001 "BCW Alt. Comp. VAT Reg. Facade"
     //     AltCustVATReg.SetRange("Customer No.", CustNo);
     //     AltCustVATReg.SetRange("VAT Country/Region Code", CountryCode);
     //     exit(AltCustVATReg.FindFirst());
-    // end;
-
-    // procedure UpdateVATRegNoInCustFromSalesHeader(SalesHeader: Record "Sales Header"; Customer: Record Customer) ShouldUpdate: Boolean
-    // var
-    //     IsHandled: Boolean;
-    // begin
-    //     OnBeforeUpdateVATRegNoInCustFromSalesHeader(SalesHeader, Customer, ShouldUpdate, IsHandled);
-    //     if IsHandled then
-    //         exit(ShouldUpdate);
-    //     exit((Customer."VAT Registration No." = '') and (not SalesHeader."Alt. VAT Registration No."));
     // end;
 
     // procedure VATDataIsChangedOnShipToCodeValidation(SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header") Changed: Boolean
