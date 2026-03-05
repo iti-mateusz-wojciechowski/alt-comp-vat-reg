@@ -5,17 +5,12 @@ codeunit 50002 "BCW Alt. Co. VAT Reg. Doc. Im." implements "BCW Alt. Comp. VAT R
 
     end;
 
-    procedure CopyFromCompany(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
-    begin
-
-    end;
-
-    procedure UpdateSetupOnShipToCountryChangeInSalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
-    begin
-
-    end;
-
     procedure UpdateSetupOnVATCountryChangeInSalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
+    begin
+
+    end;
+
+    procedure UpdateSetupOnCompVATRegistrationChangeInSalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
     begin
 
     end;
