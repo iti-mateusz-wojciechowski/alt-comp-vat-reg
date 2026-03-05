@@ -20,7 +20,6 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
             NotBlank = true;
             TableRelation = "BCW Alt. Comp. VAT Reg.".Code;
             ToolTip = 'Specifies the code of the alternative company VAT registration.';
-            ValidateTableRelation = false;
         }
         field(3; "Source Type"; Enum "BCW Source Type")
         {
@@ -34,14 +33,47 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
             Vendor."No.";
             ToolTip = 'Specifies the entity number.';
         }
-        field(5; "Src. Alt. VAT Ctry./Reg. Code"; Code[10])
+        field(5; "Src. Alt. VAT Reg. Id"; Integer)
+        {
+            AllowInCustomizations = AsReadOnly;
+            Caption = 'Source Alt. VAT Registration Id';
+        }
+        field(6; "Src. Alt. VAT Ctry./Reg. Code"; Code[10])
         {
             Caption = 'Source Alt. VAT Country/Region Code';
-            TableRelation = if ("Source Type" = const("BCW Source Type"::Customer)) "Alt. Cust. VAT Reg."."VAT Country/Region Code";
+            TableRelation = "Country/Region".Code;
             ToolTip = 'Specifies the entity alternative VAT country or region code.';
-            ValidateTableRelation = false;
+
+            trigger OnValidate()
+            var
+                AltCustVATReg: Record "Alt. Cust. VAT Reg.";
+                AltCustVATRegFacade: Codeunit "Alt. Cust. VAT. Reg. Facade";
+                NotFoundErr: Label 'Alternative customer VAT registration not found.';
+            begin
+                if AltCustVATRegFacade.GetAlternativeCustVATReg(AltCustVATReg, "Source No.", "Src. Alt. VAT Ctry./Reg. Code") then
+                    "Src. Alt. VAT Reg. Id" := AltCustVATReg.ID
+                else
+                    Error(NotFoundErr);
+            end;
+
+            trigger OnLookup()
+            var
+                AltCustVATReg: Record "Alt. Cust. VAT Reg.";
+                AltCustVATRegList: Page "Alt. Cust. VAT Reg.";
+            begin
+                if not ("Source Type" = "Source Type"::Customer) then
+                    exit;
+
+                AltCustVATReg.SetRange("Customer No.", Rec."Source No.");
+                AltCustVATRegList.SetTableView(AltCustVATReg);
+                AltCustVATRegList.LookupMode(true);
+                if AltCustVATRegList.RunModal() = Action::LookupOK then begin
+                    AltCustVATRegList.GetRecord(AltCustVATReg);
+                    Validate("Src. Alt. VAT Ctry./Reg. Code", AltCustVATReg."VAT Country/Region Code");
+                end;
+            end;
         }
-        field(6; "Gen. Bus. Posting Group"; Code[20])
+        field(7; "Gen. Bus. Posting Group"; Code[20])
         {
             Caption = 'Gen. Bus. Posting Group';
             TableRelation = "Gen. Business Posting Group".Code;
@@ -56,7 +88,7 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
                         Validate("VAT Bus. Posting Group", GenBusPostingGrp."Def. VAT Bus. Posting Group");
             end;
         }
-        field(7; "VAT Bus. Posting Group"; Code[20])
+        field(8; "VAT Bus. Posting Group"; Code[20])
         {
             Caption = 'VAT Bus. Posting Group';
             TableRelation = "VAT Business Posting Group".Code;
