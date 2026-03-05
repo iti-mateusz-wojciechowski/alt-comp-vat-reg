@@ -2,6 +2,8 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
 {
     Caption = 'Alternative Company VAT Registration Posting Setup';
     DataClassification = CustomerContent;
+    DrillDownPageId = "BCW Alt Co VAT Reg Post Setup";
+    LookupPageId = "BCW Alt Co VAT Reg Post Setup";
 
     fields
     {

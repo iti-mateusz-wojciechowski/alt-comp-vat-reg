@@ -11,5 +11,6 @@ permissionset 50000 "BCW Permissions"
         codeunit "BCW Alt. Co. VAT Reg. Cons.Im." = X,
         codeunit "BCW Alt. Co. VAT Reg. Doc. Im." = X,
         codeunit "BCW Alt. Comp. VAT Reg. Facade" = X,
-        page "BCW Alt. Comp. VAT Reg." = X;
+        page "BCW Alt. Comp. VAT Reg." = X,
+        page "BCW Alt Co VAT Reg Post Setup" = X;
 }
