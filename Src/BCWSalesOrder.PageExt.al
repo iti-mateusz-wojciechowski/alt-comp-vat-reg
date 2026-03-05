@@ -4,7 +4,7 @@ pageextension 50000 "BCW Sales Order" extends "Sales Order"
     {
         addbefore("VAT Country/Region Code")
         {
-            field("BCW Comp. VAT Registration"; Rec."BCW Comp. VAT Registration")
+            field("BCW Alt. Comp. VAT Reg. Code"; Rec."BCW Alt. Comp. VAT Reg. Code")
             {
                 ApplicationArea = All;
             }

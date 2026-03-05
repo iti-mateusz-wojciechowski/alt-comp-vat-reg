@@ -14,12 +14,13 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
             Caption = 'Id';
             DataClassification = SystemMetadata;
         }
-        field(2; "Alt. Comp. VAT Registration"; Code[10])
+        field(2; "Alt. Comp. VAT Reg. Code"; Code[20])
         {
             Caption = 'Alt. Comp. VAT Registration';
             NotBlank = true;
-            TableRelation = "BCW Alt. Comp. VAT Reg."."VAT Country/Region Code";
-            ToolTip = 'Specifies the country or region code for the alternative company VAT registration.';
+            TableRelation = "BCW Alt. Comp. VAT Reg.".Code;
+            ToolTip = 'Specifies the code of the alternative company VAT registration.';
+            ValidateTableRelation = false;
         }
         field(3; "Source Type"; Enum "BCW Source Type")
         {
@@ -29,12 +30,16 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
         field(4; "Source No."; Code[20])
         {
             Caption = 'Source No.';
+            TableRelation = if ("Source Type" = const("BCW Source Type"::Customer)) Customer."No." else
+            Vendor."No.";
             ToolTip = 'Specifies the entity number.';
         }
         field(5; "Src. Alt. VAT Ctry./Reg. Code"; Code[10])
         {
             Caption = 'Source Alt. VAT Country/Region Code';
+            TableRelation = if ("Source Type" = const("BCW Source Type"::Customer)) "Alt. Cust. VAT Reg."."VAT Country/Region Code";
             ToolTip = 'Specifies the entity alternative VAT country or region code.';
+            ValidateTableRelation = false;
         }
         field(6; "Gen. Bus. Posting Group"; Code[20])
         {

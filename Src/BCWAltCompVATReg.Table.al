@@ -8,12 +8,11 @@ table 50000 "BCW Alt. Comp. VAT Reg."
 
     fields
     {
-        field(1; Id; Integer)
+        field(1; Code; Code[20])
         {
-            AllowInCustomizations = Never;
-            AutoIncrement = true;
-            Caption = 'Id';
-            DataClassification = SystemMetadata;
+            Caption = 'Code';
+            NotBlank = true;
+            ToolTip = 'Specifies the code for the alternative company VAT registration.';
         }
         field(2; "VAT Country/Region Code"; Code[10])
         {
@@ -61,10 +60,16 @@ table 50000 "BCW Alt. Comp. VAT Reg."
 
     keys
     {
-        key(Key1; Id)
+        key(Key1; Code)
         {
             Clustered = true;
         }
+    }
+
+    fieldgroups
+    {
+        fieldgroup(Brick; Code, "VAT Country/Region Code", "VAT Registration No.") { }
+        fieldgroup(DropDown; Code, "VAT Country/Region Code", "VAT Registration No.") { }
     }
 
     trigger OnInsert()

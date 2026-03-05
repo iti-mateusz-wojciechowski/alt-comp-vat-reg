@@ -13,6 +13,7 @@ page 50000 "BCW Alt. Comp. VAT Reg."
         {
             repeater(Group)
             {
+                field(Code; Rec.Code) { }
                 field("VAT Country/Region Code"; Rec."VAT Country/Region Code") { }
                 field("VAT Registration No."; Rec."VAT Registration No.") { }
             }

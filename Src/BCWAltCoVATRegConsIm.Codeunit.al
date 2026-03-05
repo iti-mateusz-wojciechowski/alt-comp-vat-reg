@@ -20,7 +20,7 @@ codeunit 50003 "BCW Alt. Co. VAT Reg. Cons.Im." implements "BCW Alt. Comp. VAT R
         if BCWAltCompVATReg."VAT Country/Region Code" = CompanyInformation."Country/Region Code" then
             Error(CountryCodeMatchesCompErr);
 
-        BCWAltCompVATReg2.SetFilter(Id, '<>%1', BCWAltCompVATReg.Id);
+        BCWAltCompVATReg2.SetFilter(Code, '<>%1', BCWAltCompVATReg.Code);
         BCWAltCompVATReg2.SetRange("VAT Country/Region Code", BCWAltCompVATReg."VAT Country/Region Code");
         if not BCWAltCompVATReg2.IsEmpty() then
             Error(InconsistentSetupErr);
@@ -30,12 +30,12 @@ codeunit 50003 "BCW Alt. Co. VAT Reg. Cons.Im." implements "BCW Alt. Comp. VAT R
     var
         BCWAltCompVATRegPostSetup2: Record "BCW Alt Co VAT Reg Post Setup";
     begin
-        BCWAltCompVATRegPostSetup.TestField("Alt. Comp. VAT Registration");
+        BCWAltCompVATRegPostSetup.TestField("Alt. Comp. VAT Reg. Code");
         BCWAltCompVATRegPostSetup.TestField("Source Type");
         BCWAltCompVATRegPostSetup.TestField("Source No.");
 
         BCWAltCompVATRegPostSetup2.SetFilter(Id, '<>%1', BCWAltCompVATRegPostSetup.Id);
-        BCWAltCompVATRegPostSetup2.SetRange("Alt. Comp. VAT Registration", BCWAltCompVATRegPostSetup."Alt. Comp. VAT Registration");
+        BCWAltCompVATRegPostSetup2.SetRange("Alt. Comp. VAT Reg. Code", BCWAltCompVATRegPostSetup."Alt. Comp. VAT Reg. Code");
         BCWAltCompVATRegPostSetup2.SetRange("Source Type", BCWAltCompVATRegPostSetup."Source Type");
         BCWAltCompVATRegPostSetup2.SetRange("Source No.", BCWAltCompVATRegPostSetup."Source No.");
         BCWAltCompVATRegPostSetup2.SetRange("Src. Alt. VAT Ctry./Reg. Code", BCWAltCompVATRegPostSetup."Src. Alt. VAT Ctry./Reg. Code");
