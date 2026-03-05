@@ -12,20 +12,29 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
             Caption = 'Id';
             DataClassification = SystemMetadata;
         }
-        field(2; "Comp. VAT Country/Region Code"; Code[10])
+        field(2; "Alt. Comp. VAT Registration"; Code[10])
         {
-            Caption = 'Comp. VAT Country/Region Code';
+            Caption = 'Alt. Comp. VAT Registration';
             NotBlank = true;
             TableRelation = "BCW Alt. Comp. VAT Reg."."VAT Country/Region Code";
             ToolTip = 'Specifies the country or region code for the alternative company VAT registration.';
         }
-        field(3; "Entity Type"; Option)
+        field(3; "Source Type"; Enum "BCW Source Type")
         {
-            Caption = 'Entity Type';
-            OptionMembers = Company,Individual;
-            ToolTip = 'Specifies the type of business entity type.';
+            Caption = 'Source Type';
+            ToolTip = 'Specifies the type of business entity.';
         }
-        field(5; "Gen. Bus. Posting Group"; Code[20])
+        field(4; "Source No."; Code[20])
+        {
+            Caption = 'Source No.';
+            ToolTip = 'Specifies the entity number.';
+        }
+        field(5; "Src. Alt. VAT Ctry./Reg. Code"; Code[10])
+        {
+            Caption = 'Source Alt. VAT Country/Region Code';
+            ToolTip = 'Specifies the entity alternative VAT country or region code.';
+        }
+        field(6; "Gen. Bus. Posting Group"; Code[20])
         {
             Caption = 'Gen. Bus. Posting Group';
             TableRelation = "Gen. Business Posting Group".Code;
@@ -40,7 +49,7 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
                         Validate("VAT Bus. Posting Group", GenBusPostingGrp."Def. VAT Bus. Posting Group");
             end;
         }
-        field(6; "VAT Bus. Posting Group"; Code[20])
+        field(7; "VAT Bus. Posting Group"; Code[20])
         {
             Caption = 'VAT Bus. Posting Group';
             TableRelation = "VAT Business Posting Group".Code;
@@ -56,4 +65,16 @@ table 50001 "BCW Alt Co VAT Reg Post Setup"
         }
     }
 
+    trigger OnInsert()
+    begin
+        BCWAltCompVATRegFacade.CheckAltCompVATRegPostSetupConsistent(Rec);
+    end;
+
+    trigger OnModify()
+    begin
+        BCWAltCompVATRegFacade.CheckAltCompVATRegPostSetupConsistent(Rec);
+    end;
+
+    var
+        BCWAltCompVATRegFacade: Codeunit "BCW Alt. Comp. VAT Reg. Facade";
 }

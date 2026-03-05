@@ -10,9 +10,9 @@ codeunit 50001 "BCW Alt. Comp. VAT Reg. Facade"
         BCWAltCompVATRegOrch.GetAltCompVATRegConsistencyImpl().CheckAltCompVATRegConsistent(BCWAltCompVATReg);
     end;
 
-    procedure CheckAltCompVATRegPostSetupConsistent()
+    procedure CheckAltCompVATRegPostSetupConsistent(BCWAltCompVATRegPostSetup: Record "BCW Alt Co VAT Reg Post Setup")
     begin
-        BCWAltCompVATRegOrch.GetAltCompVATRegConsistencyImpl().CheckAltCompVATRegPostSetupConsistent();
+        BCWAltCompVATRegOrch.GetAltCompVATRegConsistencyImpl().CheckAltCompVATRegPostSetupConsistent(BCWAltCompVATRegPostSetup);
     end;
 
     procedure CheckCompanyConsistency(CompanyInformation: Record "Company Information")
